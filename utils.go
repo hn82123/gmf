@@ -37,6 +37,7 @@ func (this AVRational) AVR() AVR {
 var (
 	AV_TIME_BASE   int        = C.AV_TIME_BASE
 	AV_TIME_BASE_Q AVRational = AVRational{1, C.int(AV_TIME_BASE)}
+	AV_ROUND_UP    uint32     = C.AV_ROUND_UP
 )
 
 func AvError(averr int) error {
@@ -64,6 +65,9 @@ func Rescale(a, b, c int) int {
 	return int(C.av_rescale(C.int64_t(a), C.int64_t(b), C.int64_t(c)))
 }
 
+func RescaleRound(a, b, c int64, round uint32) int64 {
+	return int64(C.av_rescale_rnd(C.int64_t(a), C.int64_t(b), C.int64_t(c), uint32(round)))
+}
 func GetSampleFmtName(fmt int32) string {
 	return C.GoString(C.av_get_sample_fmt_name(fmt))
 }

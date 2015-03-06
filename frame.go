@@ -224,6 +224,13 @@ func (this *Frame) SetChannelLayout(val int) *Frame {
 	this.avFrame.channel_layout = (_Ctype_uint64_t)(val)
 	return this
 }
+func (this *Frame) SampleRate() int {
+	return int(this.avFrame.sample_rate)
+}
+func (this *Frame) SetSampleRate(val int) *Frame {
+	this.avFrame.sample_rate = C.int(val)
+	return this
+}
 
 func (this *Frame) SetChannels(val int) *Frame {
 	this.avFrame.channels = C.int(val)
