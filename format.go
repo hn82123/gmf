@@ -171,6 +171,9 @@ func NewInputCtxWithFormatName(filename, format string) (*FmtCtx, error) {
 	return ctx, nil
 }
 func (this *FmtCtx) OpenInput(filename string) error {
+	return this.OpenInputWithOptions(filename, nil)
+}
+func (this *FmtCtx) OpenInputWithOptions(filename string, options *Dict) error {
 	var cfilename *_Ctype_char
 
 	if filename == "" {
@@ -180,8 +183,12 @@ func (this *FmtCtx) OpenInput(filename string) error {
 		defer C.free(unsafe.Pointer(cfilename))
 	}
 
+	var dict **C.struct_AVDictionary
+	if options != nil {
+		dict = &options.avDict
+	}
 
-	if averr := C.avformat_open_input(&this.avCtx, cfilename, nil, nil); averr < 0 {
+	if averr := C.avformat_open_input(&this.avCtx, cfilename, nil, dict); averr < 0 {
 		return errors.New(fmt.Sprintf("Error opening input '%s': %s", filename, AvError(int(averr))))
 	}
 
