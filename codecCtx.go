@@ -82,6 +82,7 @@ var (
 	FF_MB_DECISION_RD        int   = C.FF_MB_DECISION_RD
 	AV_SAMPLE_FMT_S16        int32 = C.AV_SAMPLE_FMT_S16
 	AV_SAMPLE_FMT_S16P       int32 = C.AV_SAMPLE_FMT_S16P
+	AV_CH_LAYOUT_MONO        int64 = C.AV_CH_LAYOUT_MONO
 )
 
 type SampleFmt int

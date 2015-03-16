@@ -175,7 +175,7 @@ func NewAudioFrame(sampleFormat int32, channels, nb_samples int) (*Frame, error)
 	this.mediaType = AVMEDIA_TYPE_AUDIO
 	this.SetNbSamples(nb_samples)
 	this.SetFormat(sampleFormat)
-	this.SetChannelLayout(channels)
+	this.SetChannels(channels)
 
 	//the codec gives us the frame size, in samples,
 	//we calculate the size of the samples buffer in bytes
@@ -218,6 +218,9 @@ func (this *Frame) Free() {
 func (this *Frame) SetNbSamples(val int) *Frame {
 	this.avFrame.nb_samples = C.int(val)
 	return this
+}
+func (this *Frame) ChannelLayout() int {
+	return int(this.avFrame.channel_layout)
 }
 
 func (this *Frame) SetChannelLayout(val int) *Frame {
