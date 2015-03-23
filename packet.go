@@ -193,3 +193,9 @@ func (this *Packet) SetStreamIndex(val int) *Packet {
 func (this *Packet) Free() {
 	C.av_free_packet(&this.avPacket)
 }
+
+func (this *Packet) CloneNewPacket() *Packet {
+	packetClone := NewPacket()
+	C.av_copy_packet(&packetClone.avPacket, &this.avPacket)
+	return packetClone
+}
