@@ -93,6 +93,12 @@ func (this *Stream) TimeBase() AVRational {
 	return AVRational(this.avStream.time_base)
 }
 
+func (this *Stream) SetTimeBase(val AVR) *Stream {
+	this.avStream.time_base.num = C.int(val.Num)
+	this.avStream.time_base.den = C.int(val.Den)
+	return this
+}
+
 func (this *Stream) Type() int32 {
 	return this.CodecCtx().Type()
 }
